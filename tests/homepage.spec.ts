@@ -23,13 +23,18 @@ test.describe('Homepage Smoke Test', () => {
   });
  
   test('Utility Nav is visible', async ({ page }) => {
-    const utilityItems = ['Donate', 'Events', 'Join Our Newsletter', 'Corporate Wellness'];
+    const utilityItems = ['Events', 'Join Our Newsletter', 'Corporate Wellness'];
  
     for (const item of utilityItems) {
       const link = page.getByRole('link', { name: item }).first();
       await expect(link).toBeVisible({ timeout: 10000 });
       console.log(`✅ Utility nav item found: ${item}`);
     }
+ 
+    // Donate is a button in the utility nav
+    const donate = page.getByRole('link', { name: /donate/i }).first();
+    await expect(donate).toBeVisible({ timeout: 10000 });
+    console.log('✅ Utility nav item found: Donate');
   });
  
   test('Search is visible', async ({ page }) => {
